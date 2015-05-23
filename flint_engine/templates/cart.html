@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<h2 class="center">My Cart</h2>
+	<form method="POST" action="/checkout">
+		<table class="table cart">
+			<thead>
+				<tr>
+					<th>Order</th>
+					<th>Order Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if item_names %}
+					{% for item in item_names %}
+						<tr>
+						<td>{{ item.item_name }}
+						<input type="hidden" name="{{ item.item_name }}_order" value="{{ item.price }}">
+						</td>
+						<td>Rs. {{ item.price }}</td>
+						</tr>
+					{% endfor %}
+				{% endif %}
+			</tbody>
+		</table>
+		{% set total_price = item_names|sum(attribute='price') %}
+		<div class="col-md-6"><h4>Total Price : Rs. {{ total_price }}</h4></div>
+		<input type="hidden" name="total_price" value="{{ total_price }}">
+		<div class="col-md-6 order-btn">
+			<input type="submit" class="btn btn-primary" value="Proceed to Checkout">
+		</div>
+	</form>
+</div>
+
+{% endblock %}

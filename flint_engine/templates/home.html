@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="container-fluid">
+		<div class="row">
+			{% for food_item in food_menu %}
+				{% if loop.index is not divisibleby(4) %}
+					<div>
+					<div class="row">
+						<div class="col-lg-4">
+							<a href="/item/{{food_item|replace(" ", "_")}}"><div class="col-grid"> <h3>{{ food_item }}</h3></div></a>
+						</div>
+				{% else %}
+					<div class="col-lg-4">
+						<a href="/item/{{food_item|replace(" ", "_")}}"><div class="col-grid"> <h3>{{ food_item }}</h3></div></a>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

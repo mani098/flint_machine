@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	{% if info %}
+		<div class="alert alert-success">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Success!</strong> Your order has been placed !
+		</div>
+	{% endif %}
+	<div class="well"><h1>My Orders</h1></div>
+	<br>
+	<div class="panel-group">
+	{% for items in data %}
+		{% for item in items%}
+			<div class="panel panel-default">
+				<div class="panel-heading">{{ item }} <span class="right">Rs. {{ items[item]['sub_total'] }}</span></div>
+				<div class="panel-body">
+				{% for data in items[item] %}
+					{% if data != 'sub_total' %}
+						<p>{{ data.replace("_", " ") }} : {{ items[item][data] }} </p>
+					{% endif %}
+				{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
+	{% endfor %}
+	</div>
+</div>
+{% endblock %}

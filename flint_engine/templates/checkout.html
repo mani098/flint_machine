@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="checkout container">
+	<h2 class="center">Order Summary</h2>
+	<br>
+	<form method="POST" action="/myorder">
+		<h4>Total Amount to pay : Rs. {{ price }}</h4>
+		<input type="hidden" name="total_price" value="{{ price }}">
+		<h4>Shipping charges : n/a</h4>
+		<input type="submit" class="btn btn-success" value="Pay Money">
+	</form>
+</div>
+{% endblock %}

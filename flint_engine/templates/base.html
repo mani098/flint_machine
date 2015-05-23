@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flint Machine</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	{% block header %}{% endblock %}
+	<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/base-style.css') }}" />
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Flint Machine</a>
+			</div>
+			<div>
+			<ul class="nav navbar-nav navbar-right">
+
+				<li><a href="/placeorder">
+						<span class="glyphicon glyphicon-shopping-cart"></span>
+						<span class="badge">
+						{% if session['n_orders'] %}
+							{{ session['n_orders'] }}
+						{% else %}
+							0
+						{% endif %}
+						</span>
+					</a>
+				</li>
+				{% if session['username'] %}
+					<li><a href="/myorder">My Orders</a></li>
+					<li><a href=""><span class="glyphicon glyphicon-user"></span> {{ session['username'] }} </a></li>
+					<li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Sign Out </a></li>
+				{% else %}
+					<li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Sign In/Up</a></li>
+				{% endif %}
+			</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		{% block content %}{% endblock %}
+	</div>
+</body>
+</html>

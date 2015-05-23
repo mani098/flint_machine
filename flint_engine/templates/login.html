@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Flint | Sign In</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+	<link href="{{url_for('static', filename='css/base-style.css')}}" rel='stylesheet' type='text/css' />
+</head>
+<body>
+<div class="login container">
+	<header><h2>Flint</h2></header>
+	<div class="login-form">
+		<form method="POST" action="/login">
+			<p>
+				<input type="text" name="username" autofocus required placeholder="Your Username" class="form-control" id="usr" title="Enter your Username">
+			</p>
+			<p>
+				<input type="password" name="password" required placeholder="Your password" class="form-control" id="pwd" title="Enter your password">
+			</p>
+			<p>
+				<input type="submit" class="btn btn-success" value="Sign in">
+			</p>
+		</form>
+		<div id="errors">
+			{% if message %}
+				<p class="note">{{message}}</p>
+			{% endif %}
+		</div>
+		<div class="note"><p>#SignUp and SignIn are with the same form</p></div>
+	</div>
+</div>
+</body>
+</html>

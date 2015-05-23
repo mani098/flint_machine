@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="well"><h1>{{ data.food_name }}</h1></div>
+<form action="/placeorder" method="POST">
+<input type="hidden" name="item_name" value="{{ data.food_name }}">
+<div class="panel-group">
+{% for ingredient in data.ingredients %}
+	<div class="panel panel-default">
+		<div class="panel-heading">{{ ingredient["ingredient"][0].replace("_", " ") }}</div>
+		{% if ingredient["ingredient"][1] == false %}
+
+			<div class="panel-body">
+			{% for sub_ingredient in ingredient["ingredient_value"] %}
+				<span class="sub_ing">
+				{% if sub_ingredient[1] == "radio" %}
+					<input type="radio" name="{{ ingredient["ingredient"][0] }}" value="{{ sub_ingredient[0] }}"
+					 data-price="{{ sub_ingredient[4] }}" onclick="addPrice();">
+				{% else %}
+					<input type="checkbox" name="{{ ingredient["ingredient"][0] }}_check" value="{{ sub_ingredient[0] }}"
+					data-price="{{ sub_ingredient[4] }}" onclick="addPrice();">
+				{% endif %}
+
+				{{ sub_ingredient[0].replace("_", " ") }}
+				</span>
+			{% endfor %}
+			</div>
+
+		{% else %}
+
+			<div class="panel-body">
+			{% for sub_ingredient in ingredient["ingredient_value"] %}
+				<span class="sub sub_ing">
+				{% if sub_ingredient['main_ingredients'][1] == "radio" %}
+					<input type="radio" name="{{ ingredient["ingredient"][0] }}" value="{{ sub_ingredient['main_ingredients'][0] }}"
+					data-price="0.0">
+				{% else %}
+					<input type="checkbox" name="{{ ingredient["ingredient"][0] }}_check" value="{{ sub_ingredient['main_ingredients'][0] }}"
+					data-price="0.0">
+				{% endif %}
+
+				{{ sub_ingredient['main_ingredients'][0].replace("_", " ") }}
+				</span>
+
+					{% for sub_ing in sub_ingredient['sub_ingredients'] %}
+					<span class="sub_ing">
+						{% if sub_ing[2] == "radio" %}
+							<input type="radio" name="{{ sub_ingredient['main_ingredients'][0] }}" value="{{ sub_ing[1] }}"
+							data-price="{{ sub_ing[3] }}" onclick="addPrice();">
+						{% else %}
+							<input type="checkbox" name="{{ sub_ingredient['main_ingredients'][0]}}_check" value="{{ sub_ing[1] }}"
+							data-price="{{ sub_ing[3] }}" onclick="addPrice();">
+						{% endif %}
+					{{ sub_ing[1].replace("_", " ") }}
+					</span>
+					{% endfor %}
+				</br>
+			{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+{% endfor %}
+</div>
+<div class="col-md-6"><h4>Sub Total : Rs.<span id="sub-tot">0.00</span></h4></div>
+<input type="hidden" name="sub_total" value="" id="sub-tot-hidden">
+<div class="col-md-6 order-btn">
+	<input type="submit" class="btn btn-primary" value="Add to cart">
+</div>
+</form>
+
+<script>
+	var food_price = 0.0;
+	function addPrice() {
+		var checkbox_values = $('input:radio:checked').map(function() {
+    						return parseFloat(this.getAttribute("data-price"));
+						}).get();
+
+
+		var radio_values 	= $('input:checkbox:checked').map(function() {
+    						return parseFloat(this.getAttribute("data-price"));
+						}).get();
+		var checkedValues = checkbox_values.concat(radio_values);
+		for(var i=0; i< checkedValues.length; i++) {
+			food_price += checkedValues[i];
+		}
+		$("#sub-tot").text(food_price.toFixed(2));
+		$("#sub-tot-hidden").val(food_price.toFixed(2));
+	}
+
+</script>
+{% endblock %}

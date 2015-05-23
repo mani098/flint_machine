@@ -1,0 +1,76 @@
+.wrap {
+	/*background-color: grey;*/
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.col-grid {
+	padding:80px 0px 80px 0px;
+	margin-bottom: 30px;
+	text-align: center;
+	color: #777;
+	text-transform: capitalize;
+	cursor: pointer;
+	background-color: #f8f8f8;
+	border-color: #e7e7e7;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.center {
+	text-align: center;
+}
+
+.right {
+	float: right;
+}
+
+.well h1 {
+	text-align: center;
+	text-transform: capitalize;
+}
+
+.sub_ing {
+	padding: 10px;
+	text-transform: capitalize;
+}
+
+.login.container {
+	text-align: center;
+}
+
+.checkout.container {
+	width: 60%;
+}
+
+.login-form{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	margin-top: 2%;
+	width: 60%;
+}
+.sub {
+	padding-right: 30px;
+}
+
+.order-btn {
+	padding-bottom: 100px;
+}
+
+.order-btn input {
+	float: right;
+}
+
+
+/*customize bootstrap*/
+.panel-heading {
+	text-transform: capitalize;
+}
+
+.panel-body, .table.cart {
+	text-transform: capitalize;
+}
